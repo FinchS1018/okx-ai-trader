@@ -126,6 +126,8 @@ python main.py --dry-run
 
 启动后打开 `http://127.0.0.1:8080`：
 
+![仪表盘](screenshots/screen.png)
+
 | 区域 | 内容 |
 |---|---|
 | K 线图 | BTC/USDT 切换、多周期切换（15m/1H/4H/日K/月线）、B/S 买卖点标记 |
@@ -135,6 +137,12 @@ python main.py --dry-run
 | AI 引擎 | AI 在线状态、调用次数、成本统计 |
 | AI 决策 | 最新 AI 决策历史 |
 | 快速交易 | 手动买入/卖出（输入 USDT 金额） |
+
+### 配置页面
+
+![配置页面](screenshots/setting.png)
+
+通过 `http://127.0.0.1:8080/config` 在线填写 API 密钥和切换交易模式。
 
 > 数据每 3 秒刷新，K 线每 10 秒刷新。按 Ctrl+Shift+R 强制刷新浏览器缓存。
 
