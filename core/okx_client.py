@@ -156,7 +156,7 @@ class OkxClient:
                 else:
                     return result
             except Exception as e:
-                logger.warning(f"OKX API exception (attempt {attempt+1}): {e}")
+                logger.warning(f"OKX API exception (attempt {attempt+1}): [{type(e).__name__}] {e}")
                 last_error = str(e)
 
             if attempt < max_retries - 1:
