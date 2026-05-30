@@ -260,6 +260,22 @@ class PaperOkxClient(OkxClient):
             logger.warning(f"状态恢复失败（将使用初始资金）: {e}")
             return False
 
+    def reset_state(self):
+        """重置模拟账户到初始状态"""
+        with self._lock:
+            self._paper_balances = {"USDT": self._initial_capital}
+            self._paper_positions = {}
+            self._paper_pending = []
+            self._paper_history = []
+            self._order_seq = 0
+        # 删除状态文件
+        try:
+            if os.path.exists(_STATE_FILE):
+                os.remove(_STATE_FILE)
+        except Exception as e:
+            logger.warning(f"删除状态文件失败: {e}")
+        logger.info(f"🔄 模拟账户已重置 (资金: {self._initial_capital} USDT)")
+
     # ================================================================
     # 内部方法
     # ================================================================

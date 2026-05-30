@@ -566,6 +566,15 @@ def api_emergency():
     return jsonify({"error": "引擎未初始化"}), 503
 
 
+@app.route("/api/paper/reset", methods=["POST"])
+def api_paper_reset():
+    """重置模拟账户到初始状态"""
+    if _okx_client and hasattr(_okx_client, "reset_state"):
+        _okx_client.reset_state()
+        return jsonify({"result": "ok", "message": "模拟账户已重置"})
+    return jsonify({"error": "非模拟模式，无法重置"}), 400
+
+
 # ================================================================
 # 仪表盘页面
 # ================================================================
@@ -604,6 +613,8 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   .btn { padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
   .btn-danger { background: #da3633; color: white; }
   .btn-danger:hover { background: #f85149; }
+  .btn-reset { background: #1f2a3d; color: #58a6ff; }
+  .btn-reset:hover { background: #263652; }
   .btn-sm { padding: 4px 8px; font-size: 11px; }
   .btn-buy { background: #238636; color: white; }
   .btn-sell { background: #da3633; color: white; }
@@ -625,6 +636,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
     <span id="mode-badge" class="mode demo">-</span>
     <span id="conn-status" class="error-badge" style="display:none;">⚠️ API错误</span>
     <button class="btn btn-danger btn-sm" onclick="emergencyStop()">🛑 紧急停止</button>
+    <button class="btn btn-reset btn-sm" onclick="paperReset()">🔄 重置模拟</button>
   </div>
 </div>
 
@@ -881,6 +893,19 @@ async function emergencyStop() {
   if (!confirm('确认执行紧急停止？')) return;
   await fetch('/api/emergency', { method: 'POST' });
   refresh();
+}
+
+async function paperReset() {
+  if (!confirm('重置模拟账户所有数据（余额、持仓、成交记录）？')) return;
+  var resp = await fetch('/api/paper/reset', { method: 'POST' });
+  var data = await resp.json();
+  if (data.result === 'ok') {
+    alert('✅ 模拟账户已重置');
+    refresh();
+    loadChart();
+  } else {
+    alert('❌ ' + (data.error || '重置失败'));
+  }
 }
 
 refresh(); loadChart();
