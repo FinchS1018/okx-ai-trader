@@ -55,10 +55,7 @@ def api_get_config():
     safe = {}
     for key, value in config.items():
         if value and not value.startswith("your_"):
-            if len(value) > 8:
-                safe[key] = value[:4] + "****" + value[-4:]
-            else:
-                safe[key] = "****"
+            safe[key] = "****"
         else:
             safe[key] = value
     safe["TRADING_MODE"] = safe.get("TRADING_MODE", "demo")
@@ -256,7 +253,7 @@ CONFIG_HTML = r"""<!DOCTYPE html>
         const el = document.getElementById(id);
         const val = data[key];
         if (val && val.includes('****')) {
-          el.placeholder = '(已保存) ' + val;
+          el.placeholder = '(已保存)';
         } else if (val && !val.startsWith('your_')) {
           el.value = val;
         }
