@@ -1,0 +1,16 @@
+# OKX AI 量化交易平台 — 依赖
+# 核心
+# AI SDK (OpenAI 兼容 + Anthropic 备用)
+openai>=1.0.0
+anthropic>=0.39.0
+python-okx>=1.3.0
+# 数据处理
+pandas>=2.0.0
+numpy>=1.24.0
+# Web 面板
+flask>=3.0.0
+flask-cors>=4.0.0
+# 配置
+python-dotenv>=1.0.0
+# 其他
+requests>=2.31.0

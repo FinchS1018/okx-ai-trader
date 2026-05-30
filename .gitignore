@@ -1,0 +1,27 @@
+# 环境变量 & API 密钥
+config/.env
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# 日志
+logs/
+!logs/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 模拟交易状态
+logs/paper_state.json
