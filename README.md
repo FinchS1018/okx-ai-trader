@@ -74,6 +74,18 @@ MIMO_MODEL=mimo-v2-flash
 TRADING_MODE=paper
 ```
 
+### 通过 Web 面板配置
+
+启动程序后，打开 `http://127.0.0.1:8080/config`，可以通过界面直接填写和保存 API 密钥：
+
+- **OKX API Key / Secret / Passphrase** — 必填，从 OKX 官网 → 账户 → API → 创建 V5 API Key（只开交易权限）
+- **MiMo API Key** — 在 [platform.xiaomimimo.com](https://platform.xiaomimimo.com) 申请
+- **交易模式** — 可选 demo / paper / live
+
+点击保存后配置写入 `config/.env` 文件，重启程序生效。
+
+> **安全提示**：Web 面板的配置页面不会在前端显示完整的密钥（已脱敏），配置保存后密码框自动清空。密钥存储在本地 `config/.env` 文件中，不上传到 GitHub。
+
 ### 启动
 
 ```bash
